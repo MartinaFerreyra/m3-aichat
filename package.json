@@ -1,0 +1,15 @@
+{
+  "name": "chat-patrick-stump",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"Usa: vercel dev\"",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google/genai": "^1.17.0"
+  },
+  "devDependencies": {
+    "vercel": "^48.2.9"
+  }
+}
