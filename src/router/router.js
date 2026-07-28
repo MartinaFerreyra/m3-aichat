@@ -1,9 +1,9 @@
 // Importamos las funciones que dibujan cada vista.
 // src/router/router.js
-import { renderAbout } from "../../views/about.js"; 
-import { renderChat } from "../../views/chat.js"; 
-import { renderHome } from "../../views/home.js"; 
-import { renderNotFound } from "../../views/notFound.js";
+import { renderAbout } from "../views/about.js"; 
+import { renderChat } from "../views/chat.js"; 
+import { renderHome } from "../views/home.js"; 
+import { renderNotFound } from "../views/notFound.js";
 
 
 // Tabla de rutas.
