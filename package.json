@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "echo \"Usa: vercel dev\"",
-    "start": "vercel dev"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "@google/genai": "^1.17.0"
