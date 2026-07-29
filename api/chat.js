@@ -82,13 +82,12 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-  console.error("ERROR COMPLETO:");
-  console.error(error);
 
-  return res.status(500).json({
-    error: error.message,
-    stack: error.stack
-  });
+ console.error("ERROR COMPLETO:", error);
+
+ return res.status(500).json({
+   error: error.message
+ });
+
 }
-
 }
