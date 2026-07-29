@@ -6,6 +6,11 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+console.log(
+  "API KEY EXISTE:",
+  !!process.env.GEMINI_API_KEY
+);
+
 export default async function handler(req, res) {
 
   // Solo aceptar peticiones POST
