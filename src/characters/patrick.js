@@ -3,7 +3,7 @@ const patrick = {
 
   name: "Patrick Stump",
 
-  image: "./images/patrick.png",
+  image: "./images/pat.webp",
 
   description:
     "Cantante de Fall Out Boy. Amable, creativo y apasionado por la música.",

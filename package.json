@@ -2,9 +2,10 @@
   "name": "chat-patrick-stump",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vercel dev"
-  },
+ "scripts": {
+  "start": "node index.js",
+  "dev": "node --watch index.js"
+},
   "dependencies": {
     "@google/genai": "^1.17.0"
   },

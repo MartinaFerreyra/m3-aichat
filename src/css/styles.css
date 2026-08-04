@@ -58,13 +58,28 @@ body {
 
 /* =========================== ENCABEZADO =========================== */
 
+.chatHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.headerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .chatHeader {
   padding: 1rem;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .chatMessages {
-  display: flex;  
+  display: flex;
   overflow: auto;
   padding: 1rem;
   gap: 0.75rem;
@@ -76,29 +91,52 @@ body {
   gap: 0.5rem;
 }
 
+/* ===== NUEVO: la fila que agrupa avatar + globo ===== */
+.messageRow {
+  display: flex;
+  align-items: flex-end; /* el avatar queda alineado con la base del globo */
+  gap: 0.5rem;
+}
+
+.messageRow--character {
+  justify-content: flex-start; /* fila completa a la izquierda */
+}
+
+.messageRow--user {
+  justify-content: flex-end; /* fila completa a la derecha */
+}
+
 .message {
   max-width: 85%;
   padding: 0.75rem 1rem;
   border-radius: 1rem;
-  overflow :auto;
+  overflow: auto;
 }
 
 /* ===== Mensajes ===== */
 
 .message--character {
-  align-self: flex-start; /* Alinea el mensaje a la izquierda (personaje). */
-  background: #f3f4f6;    /* Fondo gris claro para diferenciarlo del usuario. */
-  color: #111827;         /* Color del texto. */
-  border-color: #e5e7eb;  /* Color del borde del mensaje. */
+  /* se saca align-self: flex-start, ya no hace falta, lo maneja .messageRow--character */
+  background: #f3f4f6;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .message--user {
-  align-self: flex-end;   /* Alinea el mensaje a la derecha (usuario). */
-  background: #111827;    /* Fondo oscuro para distinguirlo del personaje. */
-  color: #ffffff;         /* Texto blanco para buen contraste. */
+  /* se saca align-self: flex-end, ya no hace falta, lo maneja .messageRow--user */
+  background: #111827;
+  color: #ffffff;
 }
 
-
+/* ... el resto de tu CSS (chatComposer, chatInput, chatSend, media query) queda IGUAL, no se toca */
 /* ===== Área para escribir mensajes ===== */
 
 .chatComposer {
@@ -212,3 +250,91 @@ border-radius: 8px;
   flex-shrink: 0;           /* 👈 evita que la imagen se achique si el texto es largo */
 }
 
+.chatLayout {
+  display: flex;        /* pone sidebar y contenido uno al lado del otro, no uno arriba del otro */
+  height: 100vh;         /* ocupa el 100% del alto de la pantalla, sin esto el layout quedaría bajito */
+}
+
+.chatSidebar {
+  width: 240px;
+  background: #fafafa;
+  border-right: 1px solid #e5e5e5;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;                          /* recorta el contenido mientras se achica */
+  transition: width 0.2s ease, padding 0.2s ease; /* anima el cierre/apertura */
+}
+
+.chatSidebar--hidden {
+  width: 0;      /* lo achica a cero */
+  padding: 0;    /* saca el padding para que no deje un espacio fantasma */
+  border-right: none;
+}
+
+.toggleSidebarBtn {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.newChatBtn {
+  padding: 10px 12px;              /* tamaño del botón por dentro */
+  border: 1px solid #ddd;          /* borde gris clarito */
+  border-radius: 8px;              /* esquinas redondeadas */
+  background: #fff;                /* fondo blanco, para que resalte contra el sidebar gris */
+  font-size: 13px;
+  font-weight: 600;                /* texto un poco más grueso, para que se note que es un botón importante */
+  cursor: pointer;                 /* el mouse cambia a "mano" al pasar por encima */
+  transition: background 0.15s ease, border-color 0.15s ease; /* hace que el cambio de color al hacer hover sea suave, no instantáneo */
+}
+
+.newChatBtn:hover {
+  background: #f0f0f0;   /* se oscurece un poco al pasar el cursor */
+  border-color: #ccc;    /* el borde también se oscurece levemente */
+}
+
+.sessionList {
+  list-style: none;       /* saca los puntitos de lista (bullets) que trae <ul> por defecto */
+  padding: 0;              /* saca el espacio interno que <ul> trae de fábrica */
+  margin: 0;                /* saca el espacio externo que <ul> trae de fábrica */
+  display: flex;
+  flex-direction: column;   /* cada conversación guardada, una debajo de la otra */
+  gap: 2px;                 /* separación mínima entre cada item de la lista */
+  overflow-y: auto;         /* si hay muchas conversaciones, aparece scroll vertical en vez de desbordar la pantalla */
+}
+
+.sessionItem {
+  padding: 10px 12px;        /* espacio interno de cada conversación en la lista */
+  border-radius: 8px;        /* esquinas redondeadas, mismo estilo que el botón */
+  cursor: pointer;           /* mano al pasar el cursor, indica que es clickeable */
+  font-size: 13px;
+  color: #333;                /* texto gris oscuro, no negro puro */
+  white-space: nowrap;        /* obliga a que el título no salte de línea */
+  overflow: hidden;           /* si el título es muy largo, lo corta */
+  text-overflow: ellipsis;    /* y le pone "..." al final cuando lo corta */
+  transition: background 0.15s ease; /* el hover se ve suave, no brusco */
+}
+
+.sessionItem:hover {
+  background: #ececec;   /* se oscurece un poco al pasar el cursor, para dar feedback visual */
+}
+
+.sessionItem--active {
+  background: #e4e4ff;    /* fondo violeta clarito, distingue la conversación que estás viendo ahora */
+  color: #3a3af0;          /* texto en el mismo tono violeta, más notorio */
+  font-weight: 600;        /* texto más grueso, refuerza que está "seleccionado" */
+}
+
+.chatMain {
+  flex: 1;                  /* ocupa todo el espacio que sobra al lado del sidebar (el sidebar mide 240px fijo, esto se estira con el resto) */
+  display: flex;
+  flex-direction: column;    /* header, mensajes y formulario apilados verticalmente */
+  padding: 16px 24px;        /* espacio interno del área de chat */
+  min-width: 0;              /* evita que el contenido largo (como el JSON del debug) empuje y rompa el layout */
+}

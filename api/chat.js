@@ -6,11 +6,6 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-console.log(
-  "API KEY EXISTE:",
-  !!process.env.GEMINI_API_KEY
-);
-
 export default async function handler(req, res) {
 
   // Solo aceptar peticiones POST
@@ -71,7 +66,7 @@ export default async function handler(req, res) {
     // Enviar a Gemini
     const result = await ai.models.generateContent({
 
-      model: "gemini-2.5-flash",
+      model: "gemini-3.5-flash-lite",
 
       contents,
 
