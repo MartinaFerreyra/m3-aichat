@@ -1,25 +1,21 @@
-function renderCard(profile) {
+// src/ui/characterCards.js
+function renderCard(character) {
   return `
-    <article class="card">
-      <img src="${profile.image}" alt="${profile.name}" />
+    <a href="/chat?character=${character.id}" data-link class="card">
+      <img src="${character.image}" alt="${character.name}" />
       <div class="card-body">
-        <h2 class="card-name">${profile.name}</h2>
-        <p class="card-meta">${profile.species}</p>
-        <p class="card-status">${profile.status}</p>
-        <dl class="card-detail">
-          <dt>Origen</dt><dd>${profile.originName}</dd>
-          <dt>Ubicación</dt><dd>${profile.locationName}</dd>
-        </dl>
+        <h2 class="card-name">${character.name}</h2>
+        <p class="card-meta">${character.description}</p>
       </div>
-    </article>
+    </a>
   `;
 }
 
-export function renderGrid(profiles) {
+export function renderGrid(characters) {
   const container = document.getElementById("card-grid");
-  if (!profiles.length) {
+  if (!characters.length) {
     container.innerHTML = `<p class="empty-state">No se encontraron personajes.</p>`;
     return;
   }
-  container.innerHTML = profiles.map(renderCard).join("");
+  container.innerHTML = characters.map(renderCard).join("");
 }

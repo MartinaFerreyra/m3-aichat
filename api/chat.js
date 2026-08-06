@@ -1,3 +1,4 @@
+//api/chat.js
 import { GoogleGenAI } from "@google/genai";
 import { CHARACTERS } from "../src/characters/index.js";
 

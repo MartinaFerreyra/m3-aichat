@@ -27,33 +27,22 @@ body {
   padding: 8px 20px;
   border-radius: 50px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-  margin: 15px auto; 
+  margin: 15px auto;
 }
 
-/* Estilos para cada círculo/botón */
-.tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  background-color: rgb(252, 252, 252);
-  border-radius: 30%;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
+/* Nuevo: estilo para los links de navegación */
+.navigation-card a {
+  text-decoration: none; /* le dice "no subrayes", pisando el underline por defecto del navegador */
+  color: #1a1a1a; /* le dice "usá este gris oscuro", pisando el azul/violeta por defecto */
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 6px 4px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
 }
 
-/* Efecto visual cuando pasás el cursor por encima */
-.tab:hover {
-  background-color: rgb(223, 223, 223);
-  transform: scale(1.08); /* Se agranda un poquito al pasar el mouse */
-}
-
-/* Estilos exclusivos para el tamaño y color de los íconos */
-.navigation-icon {
-  font-size: 22px;
-  color: #1a1a1a;
+.navigation-card a:hover {
+  background-color: rgb(240, 240, 240);
 }
 
 /* =========================== ENCABEZADO =========================== */
@@ -223,16 +212,18 @@ body {
   padding: 20px;
 }
 
-.card{
-display:flex; 
-align-items: center;
-gap: 16px;
-max-width: 500px;
-width: 100%;
-border-radius: 8px;
- box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
-  /* ESTO ES EL RELOJ: le dice que tarde 0.3 segundos en moverse */
-  transition: transform 0.3s ease; 
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  text-decoration: none;   /* nuevo: saca el subrayado */
+  color: #111827;          /* nuevo: color de texto propio, no el violeta de link */
+  background: #fff;        /* recomendado: sin esto la tarjeta puede quedar transparente */
 }
 
 /* 2. EL EFECTO (Aquí va la orden de moverse) */
@@ -240,6 +231,13 @@ border-radius: 8px;
   /* ESTA ES LA ORDEN: muévete 10 píxeles hacia arriba (-) en el eje Y */
   transform: translateY(-10px); 
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25); 
+}
+
+.homeHero {
+  text-align: center;
+  padding: 2rem 1.5rem 1rem; /* aumenté el padding lateral para que no quede pegado al borde */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .card img {
@@ -338,3 +336,348 @@ border-radius: 8px;
   padding: 16px 24px;        /* espacio interno del área de chat */
   min-width: 0;              /* evita que el contenido largo (como el JSON del debug) empuje y rompa el layout */
 }
+
+@media (max-width: 768px) {
+  .chatSidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 80vw;
+    max-width: 280px;
+    z-index: 50;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+
+  .chatSidebar--open {
+    transform: translateX(0);
+  }
+
+  .chatMain {
+    width: 100%;
+  }
+
+  .toggleSidebarBtn {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;         /* posición cuando el sidebar está cerrado */
+    z-index: 60;
+    transition: left 0.2s ease; /* anima el desplazamiento junto con el sidebar */
+  }
+
+  .toggleSidebarBtn--shifted {
+    left: calc(80vw + 0.75rem); /* se corre al borde derecho del sidebar cuando está abierto */
+    max-left: calc(280px + 0.75rem);
+  }
+}
+
+.messageTime {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-top: 2px;
+  text-align: right;
+}
+
+
+/* --- Botón de toggle de tema (claro/oscuro) --- */
+.themeToggleBtn {
+  background-color: transparent !important;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+ 
+/* --- Sidebar: ítems de conversación clickeables --- */
+.sessionItem {
+  cursor: pointer;
+}
+ 
+/* =========================================
+   Modo oscuro
+   ========================================= */
+/* =========================================
+   Agregar este bloque completo a styles.css
+   (reemplaza cualquier versión anterior que
+   hayas pegado de estos mismos selectores)
+   ========================================= */
+
+/* --- Timestamps en mensajes --- */
+.messageTime {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-top: 2px;
+  text-align: right;
+}
+
+/* --- Botón copiar respuesta --- */
+.copyBtn {
+  float: right;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-left: 6px;
+}
+.copyBtn:hover { opacity: 1; }
+
+/* --- Indicador "escribiendo..." --- */
+.typingBubble {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 10px 14px;
+}
+.typingDot {
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: typingBounce 1.2s infinite;
+}
+.typingDot:nth-child(2) { animation-delay: 0.2s; }
+.typingDot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* --- Botón de toggle de tema (claro/oscuro) --- */
+.themeToggleBtn {
+  background-color: transparent !important;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* --- Sidebar: ítems de conversación clickeables --- */
+.sessionItem {
+  cursor: pointer;
+}
+
+/* --- Indicador de historial guardado --- */
+.historyIndicator {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 8px 0;
+  padding: 0 4px;
+}
+.historyIndicator--active {
+  opacity: 0.85;
+}
+
+/* --- Botón borrar historial --- */
+.clearHistoryBtn {
+  margin-top: auto;
+  width: 100%;
+  background: none;
+  border: 1px solid #c0392b;
+  color: #c0392b;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.clearHistoryBtn:hover {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+/* =========================================
+   Modo oscuro
+   ========================================= */
+/* =========================================
+   Modo oscuro
+   ========================================= */
+body.dark {
+  background-color: #1a1a1a;
+  color: #eee;
+}
+body.dark #app {
+  background-color: transparent;
+}
+body.dark .chatApp {
+  background: #1a1a1a;
+}
+body.dark .navigation-card {
+  background-color: #2a2a2a;
+}
+ 
+body.dark .chatHeader {
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
+}
+body.dark .chatTitle,
+body.dark .chatSubtitle {
+  color: #eee;
+}
+ 
+body.dark .chatMessages { background-color: #1a1a1a; }
+body.dark .message--character { background-color: #2a2a2a; color: #eee; }
+body.dark .message--user { background-color: #3a5a8a; color: #fff; }
+ 
+body.dark .chatSidebar { background-color: #222; }
+body.dark .sessionItem {
+  color: #ccc;
+}
+body.dark .sessionItem:hover { background-color: #333; }
+body.dark .sessionItem--active {
+  background-color: #3a5a8a;
+  color: #fff;
+}
+ 
+body.dark .chatComposer {
+  background-color: #2a2a2a;
+  border-top: 1px solid #3a3a3a;
+}
+body.dark .chatInput {
+  background-color: #1a1a1a;
+  color: #eee;
+  border: 1px solid #444;
+}
+body.dark .newChatBtn,
+body.dark .toggleSidebarBtn {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #444;
+}
+body.dark .historyIndicator {
+  color: #aaa;
+}
+body.dark .clearHistoryBtn {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+body.dark .clearHistoryBtn:hover {
+  background-color: #e74c3c;
+  color: #fff;
+}
+ 
+/* --- Parche genérico para el nav de arriba (Home/Chat/About) ---
+   Si tu nav tiene una clase propia, reemplazá "nav" por esa clase
+   para no afectar otros elementos por accidente. */
+body.dark nav {
+  background-color: #2a2a2a !important;
+}
+body.dark nav a {
+  color: #eee !important;
+}
+ 
+/* --- Scrollbar en modo oscuro --- */
+ 
+/* Firefox */
+body.dark {
+  scrollbar-color: #444 #1a1a1a;
+}
+body.dark .chatMessages,
+body.dark .sessionList {
+  scrollbar-color: #444 #222;
+}
+ 
+/* Chrome, Edge, Safari */
+body.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+body.dark ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 8px;
+  border: 2px solid #1a1a1a;
+}
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+ 
+body.dark .chatMessages::-webkit-scrollbar-track,
+body.dark .sessionList::-webkit-scrollbar-track {
+  background: #222;
+}
+body.dark .chatMessages::-webkit-scrollbar-thumb,
+body.dark .sessionList::-webkit-scrollbar-thumb {
+  border-color: #222;
+}
+ 
+/* =========================================
+   Home en modo oscuro
+   ========================================= */
+ 
+/* Fondo general de la vista Home (heredado del body.dark, pero por las dudas) */
+body.dark .homeHero,
+body.dark .cardGrid {
+  background-color: transparent;
+}
+ 
+/* Título y subtítulo con texto blanco y sombra abajo */
+body.dark .homeHero h1 {
+  color: #fff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+body.dark .homeHero p {
+  color: #ccc;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+ 
+/* Tarjeta de personaje: fondo oscuro + texto claro */
+body.dark .card {
+  background: #2a2a2a;
+  color: #eee;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+body.dark .card h2,
+body.dark .card h3 {
+  color: #fff;
+}
+body.dark .card p {
+  color: #ccc;
+}
+ 
+/* Efecto al pasar el mouse / seleccionar: se levanta y hace más sombra
+   (.card ya tiene su propio :hover con transform en tu styles.css,
+   esto solo intensifica la sombra en modo oscuro) */
+body.dark .card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Vista About --- */
+.aboutContent,
+.aboutCharacter {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+ 
+.aboutContent h2,
+.aboutCharacter h2 {
+  margin-bottom: 0.5rem;
+}
+ 
+.aboutList {
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+ 
+.aboutCharacter .card {
+  margin: 0;
+}
+ 
+body.dark .aboutContent h2,
+body.dark .aboutCharacter h2 {
+  color: #fff;
+}
+body.dark .aboutContent p,
+body.dark .aboutList {
+  color: #ccc;
+}
+ 
