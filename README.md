@@ -1,138 +1,190 @@
-Chat con Patrick Stump
+<div align="center">
 
-Single Page Application que permite chatear con Patrick Stump (cantante de Fall Out Boy) usando Google Gemini AI. Proyecto integrador desarrollado como práctica de SPA con routing, integración segura de AI mediante Vercel Serverless Functions, y testing con Vitest.
+# 🎸 Chat con Patrick Stump 🎤
 
-🔗 Repositorio: https://github.com/MartinaFerreyra/m3-aichat 🔗 Aplicación desplegada: https://m3-aichat.vercel.app
+**Habla con el cantante de Fall Out Boy gracias al poder de la IA**
 
-Personaje elegido
+Patrick Stump te espera en el chat para hablar de música, creatividad, o lo que se te ocurra.
 
-Patrick Stump — cantante de Fall Out Boy.
+### 🚀 [Ver demo en vivo](https://m3-aichat.vercel.app)
 
-El personaje fue diseñado con un system prompt que define:
+</div>
 
-Personalidad: amable, inteligente, muy creativo, fanático de la música.
-Forma de hablar: respuestas breves (2-3 oraciones), tono natural de chat, sin admitir nunca ser una IA.
-Comportamiento especial: si le preguntan de música responde con entusiasmo; si le preguntan de programación, intenta ayudar usando ejemplos musicales.
+---
 
-El prompt completo está en src/characters/patrick.js.
+## ✨ ¿Qué es este proyecto?
 
-Estructura del proyecto
-CHAT-PERSONAJE/
+Una Single Page Application donde podés chatear con **Patrick Stump**, cantante de Fall Out Boy, gracias a Google Gemini AI. El personaje tiene su propia personalidad definida por system prompt: amable, creativo, apasionado por la música — y con un modo empático propio para cuando la charla se pone personal. 🎵
+
+> 🔒 La API key de Gemini nunca se expone en el navegador — todo pasa por una Vercel Serverless Function que actúa como proxy seguro.
+
+---
+
+## 🖼️ Capturas
+
+<div align="center">
+
+| Chat desktop | Chat mobile |
+|---|---|
+| ![Chat desktop](./screenshots/chat-desktop.png) | ![Chat mobile](./screenshots/chat-mobile.jpeg) |
+
+| Vista responsive |
+|---|
+| ![Responsive](./screenshots/parte3.png) |
+
+</div>
+
+---
+
+## 🎤 El personaje
+
+| Personaje | Vibe |
+|---|---|
+| 🎸 Patrick Stump | Amable, creativo, apasionado por la música — y con calidez genuina cuando la charla se pone personal |
+
+---
+
+## 🛠️ Stack tecnológico
+
+- ⚡ **Vanilla JS (ES Modules)** — sin frameworks, routing propio con **History API**
+- 🎨 **CSS Mobile-First** — Flexbox + Grid, responsive en mobile / tablet / desktop
+- ☁️ **Vercel Serverless Functions** — proxy seguro hacia Gemini
+- 🧠 **Google Gemini AI** — motor conversacional del personaje
+- ✅ **Vitest** — testing unitario con mocking de `fetch`
+- 💾 **localStorage** — persistencia de historial por sesión y personaje
+
+---
+
+## 🚀 Cómo correrlo en local
+
+### 1. Cloná el repo e instalá dependencias
+
+```bash
+git clone https://github.com/MartinaFerreyra/m3-aichat.git
+cd m3-aichat
+npm install
+```
+
+### 2. Configurá tu variable de entorno
+
+Creá un archivo `.env` en la raíz (tomá `.env.example` como base):
+
+```
+GEMINI_API_KEY=tu_clave_aqui
+```
+
+🔑 Conseguí tu key gratis en [Google AI Studio](https://ai.google.dev/).
+
+### 3. Levantá el servidor de desarrollo
+
+```bash
+vercel dev
+```
+
+Y abrí 👉 `http://localhost:3000`
+
+---
+
+## 🧪 Testing
+
+El proyecto corre con **Vitest**, incluye mocking de `fetch`, y cubre integridad de datos, lógica de historial y la comunicación con la API (éxito, error y verificación del body enviado):
+
+```bash
+npm run test
+```
+
+**13 tests en 3 archivos**, todos pasando ✅
+
+| Archivo | Qué testea |
+|---|---|
+| `test/characters.test.js` | Integridad de los datos de personajes (nombre, imagen, prompt definido) |
+| `test/utils.test.js` | Funciones puras de lógica: recorte de historial, clave de storage, formato de hora |
+| `test/geminiService.test.js` | Llamada a la API con mocking de `fetch`: éxito, error, y body enviado |
+
+---
+
+## ☁️ Deploy en Vercel
+
+1. Conectá este repositorio a tu cuenta de Vercel
+2. Agregá la variable de entorno `GEMINI_API_KEY` en **Settings → Environment Variables**
+3. Vercel detecta automáticamente `/api/chat.js` como Serverless Function
+4. ¡Deploy! 🎉
+
+**Demo productiva:** [m3-aichat.vercel.app](https://m3-aichat.vercel.app)
+
+---
+
+## 📂 Estructura del proyecto
+
+```
+m3-aichat/
 ├── api/
-│   └── chat.js                  # Vercel Serverless Function — proxy seguro a Gemini
+│   └── chat.js                  # Serverless function — proxy seguro a Gemini
 ├── src/
 │   ├── characters/
-│   │   ├── index.js              # Registro central de personajes (CHARACTERS)
+│   │   ├── index.js              # Registro central de personajes
 │   │   └── patrick.js            # Datos y system prompt de Patrick Stump
 │   ├── css/
 │   │   └── styles.css
 │   ├── router/
-│   │   └── router.js             # Routing SPA con History API
+│   │   └── router.js             # Router SPA (History API)
 │   ├── services/
 │   │   └── geminiService.js      # Cliente que llama a /api/chat
 │   ├── ui/
-│   │   └── characterCards.js     # Render de tarjetas de personajes
+│   │   └── characterCards.js     # Tarjetas de personajes
 │   └── views/
 │       ├── about.js
-│       ├── chat.js               # Lógica del chat (historial, sesiones, UI)
+│       ├── chat.js               # Lógica del chat, sesiones, UI
 │       ├── home.js
 │       └── notFound.js
-├── tests/
+├── test/
 │   ├── characters.test.js
 │   ├── geminiService.test.js
 │   └── utils.test.js
 ├── images/
 │   └── pat.webp
+├── screenshots/
 ├── .env.example
 ├── .gitignore
 ├── index.html
 ├── main.js
 ├── package.json
 └── vercel.json
-Requisitos y pasos para ejecutar en local
-Requisitos previos
-Node.js instalado
-Una API key de Google Gemini (obtenerla acá)
-Vercel CLI (se instala como dependencia del proyecto, no hace falta instalarlo global)
-Pasos
-Clonar el repositorio
-bash
-   git clone https://github.com/MartinaFerreyra/m3-aichat.git
-   cd m3-aichat
-Instalar dependencias
-bash
-   npm install
-Configurar variables de entorno Copiar .env.example a un nuevo archivo .env y completar con tu API key real:
-bash
-   cp .env.example .env
+```
 
-Contenido de .env:
+---
 
-   GEMINI_API_KEY=tu_api_key_real
+## 🎯 Funcionalidades destacadas
 
-⚠️ El archivo .env nunca se sube al repositorio (está en .gitignore). Solo .env.example (sin valores reales) queda versionado.
+- 🧭 **Routing SPA real** — `/`, `/chat`, `/about`, con `pushState`/`popstate`, sin recargar la página
+- 💬 **Chat con historial persistente** — sesiones guardadas por personaje en `localStorage`, con sidebar para volver a conversaciones anteriores
+- ⏳ **Indicador de "escribiendo..."** mientras la AI genera la respuesta
+- ⚠️ **Manejo de errores** — mensaje claro si falla la petición a la API
+- 🕐 **Timestamps** en cada mensaje
+- 📋 **Copiar respuestas** con un clic
+- 🌗 **Modo oscuro/claro** con toggle
+- ↵ **Enviar con Enter**, además del botón
+- 📱 **100% responsive** — mobile, tablet y desktop
 
-Ejecutar en local con Vercel dev
-bash
-   vercel dev
+---
 
-Esto levanta tanto el frontend como la Serverless Function (api/chat.js) en un mismo servidor local, simulando el entorno de producción de Vercel.
+## 🤖 Registro del uso de AI en el proyecto
 
-Abrir en el navegador La terminal va a indicar la URL local (normalmente http://localhost:3000).
-Cómo ejecutar los tests
+Se utilizó Claude (Anthropic) como asistente durante todo el desarrollo:
 
-El proyecto usa Vitest para los tests unitarios.
+- **Arquitectura del chat** — sistema de sesiones múltiples en `localStorage`, separadas por personaje
+- **Corrección de bugs** — fix de duplicación del mensaje del usuario en cada request
+- **Diseño responsive** — sidebar con comportamiento distinto en mobile (overlay) vs. desktop (panel fijo)
+- **Avatar del personaje** — reestructuración de mensajes para separar avatar del globo de texto
+- **UX del chat** — indicador de "escribiendo...", timestamps, botón de copiar
+- **Testing** — diseño de los 13 tests con Vitest, incluyendo mocking de `fetch`
+- **Deployment** — `vercel.json` con rewrites para resolver el 404 en rutas SPA al recargar
+- **System prompt** — ajuste del prompt de Patrick para acortar respuestas y sumar un modo empático ante consejos o situaciones personales
 
-bash
-npm run test
-Cobertura de tests (13 tests en 3 archivos)
-Archivo	Qué testea
-tests/characters.test.js	Integridad de los datos de personajes (nombre, imagen, prompt definido)
-tests/utils.test.js	Funciones puras de lógica: recorte de historial (getTrimmedHistory), armado de clave de storage (getStorageKey), formateo de timestamps (formatTime)
-tests/geminiService.test.js	Llamada a la API con mocking de fetch: caso éxito, caso error, y verificación del body enviado
-Cómo desplegar a Vercel
-Crear una cuenta en vercel.com (se puede vincular directo con GitHub).
-Desde el dashboard de Vercel, click en "Add New Project".
-Seleccionar el repositorio de GitHub del proyecto y confirmar la vinculación.
-En la configuración del proyecto, agregar la variable de entorno GEMINI_API_KEY con el valor real (Settings → Environment Variables).
-Confirmar el deploy. Vercel construye y publica la app automáticamente.
-A partir de ahí, cada git push a la rama principal genera un nuevo deployment visible en la pestaña "Deployments" del proyecto en Vercel.
-Para que un deployment quede como la versión pública activa, hay que abrirlo desde "Deployments" y marcarlo como Production.
-El dominio fijo de producción (ej. https://m3-aichat.vercel.app) siempre apunta al último deployment marcado como Production — es ese link el que se comparte, no el link específico de cada deployment individual (que cambia en cada push).
-Capturas de pantalla
+Todo el código generado por AI fue revisado, adaptado a la estructura real del proyecto y probado manualmente antes de integrarlo.
 
-Agregar acá las capturas de la aplicación funcionando. Se recomienda incluir:
+---
 
-Vista Home (galería de personajes)
-Vista Chat en desktop, con una conversación en curso
-Vista Chat en mobile (usando las DevTools del navegador en modo responsive)
-Estado de "escribiendo..." mientras la AI genera una respuesta
-markdown
-![Home](./screenshots/home.png)
-![Chat desktop](./screenshots/chat-desktop.png)
-![Chat mobile](./screenshots/chat-mobile.jpeg)
-Registro del uso de AI en el proyecto
+## 📜 Licencia
 
-Se utilizó Claude (Anthropic) como asistente durante todo el desarrollo del proyecto, no solo en etapas puntuales. Resumen de las áreas donde se usó:
-
-Diseño de la arquitectura del chat: implementación del sistema de sesiones múltiples guardadas en localStorage, separadas por personaje mediante clave dinámica (chatSessions_<characterId>).
-Corrección de bugs: identificación y corrección de un bug de duplicación del mensaje del usuario en cada request (el mensaje se agregaba al historial antes de la respuesta de la API en vez de después).
-Diseño responsive: implementación del sidebar con comportamiento distinto en mobile (overlay deslizable) vs. desktop (panel fijo con toggle de ancho).
-Integración de avatar del personaje: reestructuración de los mensajes del chat para separar el avatar del globo de texto (messageRow + message).
-Funcionalidades de UX: indicador de "escribiendo...", timestamps en los mensajes, botón de copiar respuesta al portapapeles.
-Testing: diseño y redacción de los 13 tests unitarios con Vitest, incluyendo el patrón de mocking de fetch para testear sendMessage sin depender de la red real.
-Deployment: configuración de vercel.json con rewrites para resolver el error 404 en rutas de SPA al recargar la página.
-Explicaciones conceptuales: comprensión de conceptos como tokens, rate limiting (error 429 y manejo con Retry-After), y por qué el historial de conversación no es "gratis" en términos de costo y límites de la API.
-
-Todo el código generado por AI fue revisado, adaptado a la estructura real del proyecto, y probado manualmente antes de integrarlo.
-
-Funcionalidades extra implementadas
-Persistencia con localStorage: el historial de cada conversación se guarda por personaje (chatSessions_<characterId>), con sidebar para crear nuevas conversaciones y volver a conversaciones anteriores.
-Timestamps en los mensajes: cada mensaje (usuario y personaje) muestra la hora en que fue enviado.
-Indicador "escribiendo...": se muestra mientras se espera la respuesta de la API, y desaparece al llegar la respuesta o si ocurre un error.
-Enviar con Enter: además del botón, se puede enviar el mensaje presionando Enter en el input.
-Botón de copiar respuesta: cada mensaje del personaje tiene un botón para copiar el texto al portapapeles.
-Modo oscuro/claro: toggle que aplica la clase dark al <body>, con estilos propios para header, mensajes, sidebar, input y botones en ambos temas.
-Notas adicionales
-El historial de conversación persiste en localStorage durante la sesión del navegador (extra credit implementado), separado por personaje.
-La API key de Gemini nunca se expone en el cliente: todas las llamadas pasan por la Serverless Function en api/chat.js, que lee GEMINI_API_KEY desde variables de entorno del servidor.
+MIT
