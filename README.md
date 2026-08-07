@@ -108,9 +108,9 @@ Vista Chat en desktop, con una conversación en curso
 Vista Chat en mobile (usando las DevTools del navegador en modo responsive)
 Estado de "escribiendo..." mientras la AI genera una respuesta
 markdown
-![Home](./docs/screenshots/home.png)
-![Chat desktop](./docs/screenshots/chat-desktop.png)
-![Chat mobile](./docs/screenshots/chat-mobile.png)
+![Home](./screenshots/home.png)
+![Chat desktop](./screenshots/chat-desktop.png)
+![Chat mobile](./screenshots/chat-mobile.jpeg)
 Registro del uso de AI en el proyecto
 
 Se utilizó Claude (Anthropic) como asistente durante todo el desarrollo del proyecto, no solo en etapas puntuales. Resumen de las áreas donde se usó:
